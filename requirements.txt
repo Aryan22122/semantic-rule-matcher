@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+sentence-transformers
+torch
+textblob
+language-tool-python
+vaderSentiment
