@@ -9,10 +9,25 @@ from sentence_transformers import SentenceTransformer, util
 
 st.title("Transcript Scoring System")
 
+if "text_input" not in st.session_state:
+    st.session_state.text_input = ""
 
-user_input = st.text_area("Paste your transcript below:")
+uploaded_file = st.file_uploader("Upload a text file", type=["txt"])
 
-duration_in_sec = 52 # taken default
+if uploaded_file is not None:
+    content = uploaded_file.read().decode("utf-8")
+    st.session_state.text_input = content
+
+user_input = st.text_area(
+    "Paste your transcript below:",
+    value=st.session_state.text_input,
+    height=250
+)
+
+st.session_state.text_input = user_input
+
+
+duration_in_sec = 52  # taken default
 
 
 
