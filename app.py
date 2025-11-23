@@ -12,7 +12,7 @@ st.title("Transcript Scoring System")
 
 user_input = st.text_area("Paste your transcript below:")
 
-duration_in_sec = 52
+duration_in_sec = 52 # taken default
 
 
 
@@ -269,20 +269,6 @@ if st.button("Score"):
             "speech_rate": speech
         }
     }
-
-    st.subheader("Detailed Output")
-    st.json(detailed_output)
-
-    json_data = json.dumps(detailed_output, indent=4)
-
-    st.download_button(
-        label="📥 Download Detailed Score (JSON)",
-        data=json_data,
-        file_name="transcript_score.json",
-        mime="application/json"
-    )
-
-
     st.subheader("Score Summary")
 
     nlp_total = sim_sal + sim_must + sim_gth
@@ -291,27 +277,42 @@ if st.button("Score"):
 
     with col1:
         st.markdown(f"""
-        <div style="background:pink;padding:18px;border-radius:15px;text-align:center;
-        box-shadow:0 0 8px rgba(0,0,0,0.15);">
-            <h3>Overall Score</h3>
-            <h2 style='color:#0d47a1;'>{round(overall_score,2)}%</h2>
-        </div>
-        """, unsafe_allow_html=True)
+            <div style="background:pink;padding:18px;border-radius:15px;text-align:center;
+            box-shadow:0 0 8px rgba(0,0,0,0.15);">
+                <h3>Overall Score</h3>
+                <h2 style='color:#0d47a1;'>{round(overall_score, 2)}%</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
     with col2:
         st.markdown(f"""
-        <div style="background:white;padding:18px;border-radius:15px;text-align:center;
-        box-shadow:0 0 8px rgba(0,0,0,0.15);">
-            <h3 style="color:red">Rule-Based Score</h3>
-            <h2 style='color:#1b5e20;'>{rule_based_total}</h2>
-        </div>
-        """, unsafe_allow_html=True)
+            <div style="background:white;padding:18px;border-radius:15px;text-align:center;
+            box-shadow:0 0 8px rgba(0,0,0,0.15);">
+                <h3 style="color:red">Rule-Based Score</h3>
+                <h2 style='color:#1b5e20;'>{rule_based_total}</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
     with col3:
         st.markdown(f"""
-        <div style="background:hotpink;padding:18px;border-radius:15px;text-align:center;
-        box-shadow:0 0 8px rgba(0,0,0,0.15);">
-            <h3>NLP Similarity Boost</h3>
-            <h2 style='color:#e65100;'>{round(nlp_total,2)}</h2>
-        </div>
-        """, unsafe_allow_html=True)
+            <div style="background:hotpink;padding:18px;border-radius:15px;text-align:center;
+            box-shadow:0 0 8px rgba(0,0,0,0.15);">
+                <h3>NLP Similarity Boost</h3>
+                <h2 style='color:#e65100;'>{round(nlp_total, 2)}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.subheader("Detailed Output")
+    st.json(detailed_output)
+
+    json_data = json.dumps(detailed_output, indent=4)
+
+    st.download_button(
+        label="Download Detailed Score (JSON)",
+        data=json_data,
+        file_name="transcript_score.json",
+        mime="application/json"
+    )
+
+
+
